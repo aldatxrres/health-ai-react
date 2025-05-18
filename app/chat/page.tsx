@@ -25,7 +25,6 @@ export default function ChatPage() {
 
     if (!input.trim()) return
 
-    // Adiciona a mensagem do usuário
     const userMessage = {
       id: messages.length + 1,
       content: input,
@@ -36,7 +35,6 @@ export default function ChatPage() {
     setMessages([...messages, userMessage])
     setInput("")
 
-    // Simula resposta do bot após um pequeno delay
     setTimeout(() => {
       const botResponses = [
         "Entendi sua dúvida. Vou ajudar com isso!",
