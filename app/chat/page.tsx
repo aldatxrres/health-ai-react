@@ -35,26 +35,39 @@ export default function ChatPage() {
     setMessages([...messages, userMessage])
     setInput("")
 
-    setTimeout(() => {
-      const botResponses = [
-        "Entendi sua dúvida. Vou ajudar com isso!",
-        "Para essa questão, recomendo consultar diretamente com o médico na próxima consulta.",
-        "Essa é uma dúvida comum. Geralmente, o procedimento recomendado é...",
-        "Vou verificar essa informação para você. Um momento, por favor.",
-        "Baseado no que você descreveu, isso pode ser normal, mas é sempre bom consultar um profissional.",
-      ]
+    const fetchBotResponse = async () => {
+      try {
+        const response = await fetch("https://aldatorres.app.n8n.cloud/webhook/chat-agent", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ question: input }),
+        })
 
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)]
+        const data = await response.json()
 
-      const botMessage = {
-        id: messages.length + 2,
-        content: randomResponse,
-        sender: "bot",
-        timestamp: new Date().toISOString(),
+        const botMessage = {
+          id: messages.length + 2,
+          content: data[0]?.output || "Desculpe, não consegui entender. Pode reformular?",
+          sender: "bot",
+          timestamp: new Date().toISOString(),
+        }
+
+        setMessages((prev) => [...prev, botMessage])
+      } catch (error) {
+        console.error("Erro ao buscar resposta do agente:", error)
+        const errorMessage = {
+          id: messages.length + 2,
+          content: "Houve um erro ao conectar com o assistente. Tente novamente em instantes.",
+          sender: "bot",
+          timestamp: new Date().toISOString(),
+        }
+        setMessages((prev) => [...prev, errorMessage])
       }
+    }
 
-      setMessages((prev) => [...prev, botMessage])
-    }, 1000)
+    fetchBotResponse()
   }
 
   return (

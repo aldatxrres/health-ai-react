@@ -45,9 +45,9 @@ export default function Sidebar() {
         <div className="p-4 flex items-center justify-center">
           <div className={cn("flex items-center", !isOpen && !isMobile && "flex-col")}>
             <div className="w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center text-white font-bold text-xl">
-              M
+              H
             </div>
-            {isOpen && <span className="ml-2 text-xl font-semibold text-teal-700">MediAssist</span>}
+            {isOpen && <span className="ml-2 text-xl font-semibold text-teal-700">Health + AI</span>}
           </div>
         </div>
 

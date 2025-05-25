@@ -8,7 +8,7 @@ import Sidebar from "@/components/sidebar"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "MediAssist - Sistema para Consultórios Médicos",
+  title: "Health + AI",
   description: "Sistema de gerenciamento para consultórios médicos com IA",
     generator: 'v0.dev'
 }
